@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Изберете регион";
+}
+
+@model IEnumerable<Firm_Register.Models.Regions>
+
+<div class="container p-3">
+    <div class=" row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Изберете регион</h2>
+        </div>
+    </div>
+    <br /><br />
+
+    @foreach (var obj in Model)
+    {
+        <tr>
+            <td>@Html.Label(obj.Region_Name)</td>
+        </tr>
+    }
+</div>
