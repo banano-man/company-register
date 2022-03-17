@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Firm_Register", "Firm_Register\Firm_Register.csproj", "{6A91F359-0564-41DE-AF0A-6A19EAF8E800}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "People_Maker", "ConsoleApp1\People_Maker.csproj", "{7EA8AA9D-07C9-45E3-80C9-3644D8BBE8DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "People_Maker", "People_Maker\People_Maker.csproj", "{7EA8AA9D-07C9-45E3-80C9-3644D8BBE8DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
