@@ -1,5 +1,6 @@
-﻿using Firm_Register.Data;
+using Firm_Register.Data;
 using Firm_Register.Models;
+using Firm_Register.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,13 @@ namespace Firm_Register.Controllers
             _db = db;
         }
 
-        public IActionResult Index()
+        public ActionResult Index(string region)
         {
-            IEnumerable<Regions> objList = _db.Regions;
-            return View(objList);
+            ViewBag.region = region;
+            FirmViewModel firmModel = new FirmViewModel();
+            firmModel.Firms = _db.Firms;
+            firmModel.Regions = _db.Regions;
+            return View(firmModel);
         }
     }
 }
