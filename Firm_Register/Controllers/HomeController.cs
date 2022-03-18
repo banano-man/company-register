@@ -1,4 +1,6 @@
-﻿using Firm_Register.Models;
+using Firm_Register.Data;
+using Firm_Register.Models;
+using Firm_Register.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,16 +13,24 @@ namespace Firm_Register.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly AppDbContext _db;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, AppDbContext db)
         {
+            _db = db;
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public ActionResult Index()
         {
-            return View();
+            HomeViewModel homeModel = new HomeViewModel();
+            homeModel.People = _db.People;
+            homeModel.Firms = _db.Firms;
+            homeModel.Regions = _db.Regions;
+            ViewBag.PeopleCount = _db.People.Count() / 100 * 100;
+            ViewBag.FirmsCount = _db.Firms.Count() / 10 * 10;
+            return View(homeModel);
         }
 
         public IActionResult Privacy()
