@@ -15,17 +15,23 @@ namespace People_Maker
             SqlConnection connection = new SqlConnection("Server = (LocalDb)\\MSSQLLocalDB; database = Firm_Register; Trusted_Connection = True; MultipleActiveResultSets = true");
             Dictionary<string, List<string>> males = new Dictionary<string, List<string>>();
             Dictionary<string, List<string>> malesCopy = new Dictionary<string, List<string>>();
+            List<string> workPlaces = new List<string>();
+            List<int> firms = new List<int>();
+            List<int> firmsCopy = new List<int>();
             Dictionary<string, List<string>> females = new Dictionary<string, List<string>>();
             Dictionary<string, List<string>> femalesCopy = new Dictionary<string, List<string>>();
             Console.WriteLine("Въведи брой записи: ");
             int n = int.Parse(Console.ReadLine());
+            int firms_Number = 0;
             int maleCount = n / 2, femaleCount = n - maleCount;
             using (connection)
             {
-                SqlCommand command = new SqlCommand(
-                  "SELECT Male_Name FROM dbo.Males;",
-                  connection);
                 connection.Open();
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Firms", connection);
+                firms_Number = (Int32)cmd.ExecuteScalar();
+                SqlCommand command = new SqlCommand(
+                   "SELECT Male_Name FROM dbo.Males;",
+                   connection);
                 SqlDataReader Male_Reader = command.ExecuteReader();
                 while (Male_Reader.Read())
                 {
@@ -54,13 +60,15 @@ namespace People_Maker
                 connection.Close();
             }
             Random rnd = new Random();
-            for(int i = 1; i <= maleCount; i++)
+            for (int i = 1; i <= firms_Number; i++) firms.Add(i);
+            int peopleIntoFirm = 0, addOwner = 1;
+            int rndFirm = rnd.Next(firms.Count);
+            for (int i = 1; i <= maleCount; i++)
             {
                 int rndFirstName = rnd.Next(males.Count);
                 string FirstName = males.ElementAt(rndFirstName).Key;
                 int rndLastName = rnd.Next(males[FirstName].Count);
                 Person person = new Person(FirstName, males[FirstName][rndLastName], 'm');
-                //Console.WriteLine(FirstName + " " + males[FirstName][rndLastName] + " " + 'm');
                 if (malesCopy.ContainsKey(FirstName)) malesCopy[FirstName].Add(males[FirstName][rndLastName]);
                 else
                 {
@@ -68,17 +76,44 @@ namespace People_Maker
                     malesCopy[FirstName].Add(males[FirstName][rndLastName]);
                 }
                 males[FirstName].Remove(males[FirstName][rndLastName]);
+                if (person.Index <= firms_Number)
+                {
+                    WorkPlace workPlace = new WorkPlace(person.Index, addOwner, 2);
+                    addOwner++;
+                    workPlaces.Add(workPlace.toDataBase);
+
+                }
+                else if (peopleIntoFirm == 7)
+                {
+                    WorkPlace workPlace = new WorkPlace(person.Index, firms[rndFirm], 3);
+                    workPlaces.Add(workPlace.toDataBase);
+                    peopleIntoFirm++;
+                }
+                else
+                {
+                    WorkPlace workPlace = new WorkPlace(person.Index, firms[rndFirm], 4);
+                    workPlaces.Add(workPlace.toDataBase);
+                    peopleIntoFirm++;
+                }
+                if (peopleIntoFirm == 8)
+                {
+                    peopleIntoFirm = 0;
+                    firmsCopy.Add(firms[rndFirm]);
+                    firms.RemoveAt(rndFirm);
+                    if (firms.Count == 0) { firms = firmsCopy; firmsCopy.Clear(); }
+                    rndFirm = rnd.Next(firms.Count);
+                }
                 if (males[FirstName].Count == 0) males.Remove(FirstName);
                 if (males.Count == 0) { males = malesCopy; malesCopy.Clear(); }
-                
+
+
             }
-            for(int i = 1; i <= femaleCount; i++)
+            for (int i = 1; i <= femaleCount; i++)
             {
                 int rndFirstName = rnd.Next(females.Count);
                 string FirstName = females.ElementAt(rndFirstName).Key;
                 int rndLastName = rnd.Next(females[FirstName].Count);
                 Person person = new Person(FirstName, females[FirstName][rndLastName], 'f');
-                //Console.WriteLine(FirstName + " " + females[FirstName][rndLastName] + " " + 'f');
                 if (femalesCopy.ContainsKey(FirstName)) femalesCopy[FirstName].Add(females[FirstName][rndLastName]);
                 else
                 {
@@ -86,10 +121,40 @@ namespace People_Maker
                     femalesCopy[FirstName].Add(females[FirstName][rndLastName]);
                 }
                 females[FirstName].Remove(females[FirstName][rndLastName]);
+                if (person.Index <= firms_Number)
+                {
+                    WorkPlace workPlace = new WorkPlace(person.Index, addOwner, 2);
+                    addOwner++;
+                    workPlaces.Add(workPlace.toDataBase);
+
+                }
+                else if (peopleIntoFirm == 7)
+                {
+                    WorkPlace workPlace = new WorkPlace(person.Index, firms[rndFirm], 3);
+                    workPlaces.Add(workPlace.toDataBase);
+                    peopleIntoFirm++;
+                }
+                else
+                {
+                    WorkPlace workPlace = new WorkPlace(person.Index, firms[rndFirm], 4);
+                    workPlaces.Add(workPlace.toDataBase);
+                    peopleIntoFirm++;
+                }
+                if (peopleIntoFirm == 8)
+                {
+                    peopleIntoFirm = 0;
+                    firmsCopy.Add(firms[rndFirm]);
+                    firms.RemoveAt(rndFirm);
+                    if (firms.Count == 0) { firms = firmsCopy; firmsCopy.Clear(); }
+                    rndFirm = rnd.Next(firms.Count);
+                }
                 if (females[FirstName].Count == 0) females.Remove(FirstName);
                 if (females.Count == 0) { females = femalesCopy; femalesCopy.Clear(); }
             }
+            Console.WriteLine();
+            foreach (string row in workPlaces) Console.WriteLine(row);
             Console.ReadKey(true);
         }
     }
 }
+
