@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,8 +24,11 @@ namespace People_Maker
                 while (r % 2 != 1)
                     r = rnd.Next(1000);
             else
+            {
+                r = 1;
                 while (r % 2 == 1)
                     r = rnd.Next(1000);
+            }
             if (r < 10) egn.Append("00");
             else if (r < 100) egn.Append("0");
             egn.Append(r);
