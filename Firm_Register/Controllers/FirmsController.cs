@@ -29,15 +29,20 @@ namespace Firm_Register.Controllers
         }
         public ActionResult Info(string firm_Name)
         {
-           
             FirmViewModel firmModel = new FirmViewModel();
             firmModel.Firms = _db.Firms;
             firmModel.WorkPlaces = _db.WorkPlaces;
+            firmModel.People = _db.People;
             var firm = _db.Firms.Where(x => x.Firm_Name == firm_Name).ToList();
             var workPlace = _db.WorkPlaces.Where(x => x.Firm_Id == firm[0].Firm_ID).ToList();
+            var owner = workPlace.Where(x => x.Role_Id == 2).ToList();
+            int owner_Id = owner[0].Person_Id;
+            var ownerRow = _db.People.Where(x => x.Person_Id == owner_Id).ToList();
+            ViewBag.Owner = ownerRow[0].Person_First_Name + " " + ownerRow[0].Person_Last_Name;
             ViewBag.Workers = workPlace.Count();
             ViewBag.Firm = firm[0];
-            ViewBag.Trl = Transliteration(firm[0].Firm_Name);
+            ViewBag.Trl = Transliteration(firm[0].Firm_Name);    
+
             return View(firmModel);
         }
         public string Transliteration(string cyrilicName)
