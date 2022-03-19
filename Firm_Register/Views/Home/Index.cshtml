@@ -5,32 +5,41 @@
 }
 <style>
     div { align-content:center;
+          background-color:white;
     }
     td {
         cursor: pointer;
     }
+    body{
+        background-color:#f2f2f2;
+    }
 </style>
-<div style="align-items: center; margin-top: 4.68em; margin-bottom: 4.68em;">
+<body>
+<div style="align-items: center; padding-top: 2em; margin-top: 3em; margin-bottom: 2.3em;">
     <h3 style="text-align: center;">
         ИНФОРМАЦИЯ ЗА ПОВЕЧЕ ОТ <b>@ViewBag.FirmsCount</b> ФИРМИ,<br>
         В КОИТО РАБОТЯТ НАД <b>@ViewBag.PeopleCount</b> ДУШИ
     </h3>
 </div>
-<div>
+    <hr>
+<div style="margin-top:2.3em; margin-bottom: 2em;">
+    
     <h4 style="text-align: center;">Търсене на фирма</h4>
     <p style="text-align: center;">Тука слагаме търсачката</p>
 </div>
+<hr>
+<div class="container" style=" text-align: center; margin-top: 2em;" align="center">
 
-<div class="container" style=" text-align: center; margin-top: 4.6875em;" align="center">
-    <hr>
     <h5 style="margin-bottom: 10px;">Търсене по област</h5>
-        <p style="line-height:20px; column-count: 4; column-gap: 0.9375px;a">
+        <p style="line-height:20px; column-count: 4; column-gap: 0.9375px;">
             @foreach (var obj in Model.Regions)
             {
                 <tr>
-                    <td ><a asp-controller="Firms" , asp-action="Index" , asp-route-region=@obj.Region_Name>@Html.Label(obj.Region_Name)</a></td>
+                    <td ><a asp-controller="Firms" asp-action="Index" asp-route-region=@obj.Region_Name>@Html.Label(obj.Region_Name)</a></td>
                     <br>
                 </tr>
             }
         </p>
 </div>
+
+</body><div style="background-color:#f2f2f2;"><hr></div>
