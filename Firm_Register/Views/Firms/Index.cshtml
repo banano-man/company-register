@@ -4,38 +4,46 @@
 
 @model Firm_Register.ViewModels.FirmViewModel
 <style>
-    table, td, th {
-        border: 1px solid black;
+    body{
+        background-color: #f2f2f2;
+    }
+    td {
+        border-top: 1px solid black;
     }
 
     table {
-        border-collapse: collapse;
+
         width: 1000px;
     }
 
     th {
         height: 50px;
     }
+    td{
+        height:30px;
+    }
     tr:nth-child(even) {
         background-color: #f2f2f2;
     }
 </style>
-<div class="container" style=" text-align: center; margin-top: 4.65em;" align="center">
+<div class="container" style=" text-align: center; margin-top: 3em; background-color: white; padding-top: 1em; padding-bottom: 0.5em;" align="center">
 
     <h5 style="margin-bottom: 10px;">Търсене по област</h5>
-    <p style="line-height: 20px; column-count: 4; column-gap: 0.9375px; margin-top: 1em; margin-left: 12em; margin-right: 12em;">
+    <hr>
+    <p style="line-height: 20px; column-count: 4; column-gap: 0.9375px; margin-left: 12em; margin-right: 12em;">
         @foreach (var obj in Model.Regions)
         {
             <tr>
-                <td><a asp-controller="Firms", asp-action="Index", asp-route-region=@obj.Region_Name>@Html.Label(obj.Region_Name)</a></td>
+                <td><a asp-controller="Firms" asp-action="Index" asp-route-region=@obj.Region_Name>@Html.Label(obj.Region_Name)</a></td>
                 <br>
             </tr>
         }
     </p>
 </div>
 <hr>
+<div style="background-color: white; padding-top: 1em; padding-bottom:1.5em;">
 <h4 style="text-align:center;">Фирми в област @ViewBag.region</h4>
-<table style="border: solid; text-align: center; vertical-align:central;" align="center";>
+<table style="text-align: center; vertical-align:central;" align="center";>
     <tr style="background-color: #bbbbbb; font-size: 17px; ">
         <th style="width: 150px"><b>ЕИК</b></th>
         <th style="width: 650px"><b>Наименование</b></th>
@@ -43,11 +51,12 @@
     </tr>
     @foreach (var obj in Model.Firms.Where(x => x.Region.Region_Name == ViewBag.region).ToList())
     {
-        <tr>
+        <tr> 
             <td><b>@obj.EIK</b></td>
-            <td>@obj.Firm_Name</td>
-            <td>@obj.Found_Date.Date</td>
+            <td><a asp-controller="Firms" asp-action="Info" asp-route-firm_Name=@obj.Firm_Name>@obj.Firm_Name</a></td>
+            <td>@obj.Found_Date.Day.@obj.Found_Date.Month.@obj.Found_Date.Year</td>
         </tr>
     }
 
 </table>
+</div>
