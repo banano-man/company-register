@@ -1,0 +1,63 @@
+﻿@model Firm_Register.ViewModels.FirmViewModel
+@{
+    ViewData["Title"] = @ViewBag.Firm.Firm_Name;
+}
+<style>
+    table {
+        width: 1000px;
+    }
+    body {
+        background-color:#f2f2f2;
+    }
+    div{
+        background-color:white;
+    }
+    td {
+        height: 40px;
+    }
+</style>
+
+<body>
+    <div style="padding: 25px 30px 25px 30px;">
+    <div>
+       <h2>@ViewBag.Firm.Firm_Name</h2>
+       <hr>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td style="width:200px;"><b>ЕИК</b></td>
+                <td>@ViewBag.Firm.EIK</td>
+            </tr>
+            <tr>
+                <td><b>Дата на регистрация</b></td>
+                <td>@ViewBag.Firm.Found_Date.Day.@ViewBag.Firm.Found_Date.Month.@ViewBag.Firm.Found_Date.Year</td>
+            </tr>
+            <tr>
+                <td><b>Наименование</b></td>
+                <td>@ViewBag.Firm.Firm_Name</td>
+            </tr>
+            <tr>
+                <td><b>Транслитерация</b></td>
+                <td>@ViewBag.trl</td>
+            </tr>
+            <tr>
+                <td><b>Оборот</b></td>
+                <td>@ViewBag.Firm.Capital лв</td>
+            </tr>
+            <tr>
+                <td><b>Брой служители</b></td>
+                <td>@ViewBag.Workers</td>
+            </tr>
+            <tr>
+                <td><b>Седалище</b></td>
+                <td>@ViewBag.Firm.Address</td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top;"><b>Предмет на дейност</b></td>
+                <td>@ViewBag.Firm.Info</td>
+            </tr>
+        </table>
+    </div>
+    </div>
+</body>
