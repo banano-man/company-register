@@ -8,6 +8,7 @@ namespace People_Maker
 {
     public static class Password
     {
+        //Генериране на случайна 8-символна парола
         public static string GeneratePassword()
         {
             char[] symbols = new char[]
