@@ -24,6 +24,7 @@ namespace People_Maker
             int n = int.Parse(Console.ReadLine());
             int firms_Number = 0;
             int maleCount = n / 2, femaleCount = n - maleCount;
+            //запълване на речниците males и females с имена и фамилии
             using (connection)
             {
                 connection.Open();
@@ -59,6 +60,7 @@ namespace People_Maker
                 }
                 connection.Close();
             }
+            //използване на "брой искани записи / 2" случайни мъжки имена и изпълняването на Person за всеки от тях
             Random rnd = new Random();
             for (int i = 1; i <= firms_Number; i++) firms.Add(i);
             int peopleIntoFirm = 0, addOwner = 1;
@@ -69,6 +71,7 @@ namespace People_Maker
                 string FirstName = males.ElementAt(rndFirstName).Key;
                 int rndLastName = rnd.Next(males[FirstName].Count);
                 Person person = new Person(FirstName, males[FirstName][rndLastName], 'm');
+                //След всеки нов запис даденото име се копира от оригиналния речник и се поставя в нов, като оригиналният запис се изтрива
                 if (malesCopy.ContainsKey(FirstName)) malesCopy[FirstName].Add(males[FirstName][rndLastName]);
                 else
                 {
@@ -76,6 +79,7 @@ namespace People_Maker
                     malesCopy[FirstName].Add(males[FirstName][rndLastName]);
                 }
                 males[FirstName].Remove(males[FirstName][rndLastName]);
+                //Всеки създаден човек бива "нает" в случайна фирма
                 if (person.Index <= firms_Number)
                 {
                     WorkPlace workPlace = new WorkPlace(person.Index, addOwner, 2);
@@ -103,11 +107,13 @@ namespace People_Maker
                     if (firms.Count == 0) { firms = firmsCopy; firmsCopy.Clear(); }
                     rndFirm = rnd.Next(firms.Count);
                 }
+                //Ако исканите записи / 2 са повече от броя на имена в оригиналния речник, след изпразването му той се презарежда
                 if (males[FirstName].Count == 0) males.Remove(FirstName);
                 if (males.Count == 0) { males = malesCopy; malesCopy.Clear(); }
 
 
             }
+            //аналогично действие на горния цикъл, но се извършва с женски имена
             for (int i = 1; i <= femaleCount; i++)
             {
                 int rndFirstName = rnd.Next(females.Count);
@@ -121,6 +127,7 @@ namespace People_Maker
                     femalesCopy[FirstName].Add(females[FirstName][rndLastName]);
                 }
                 females[FirstName].Remove(females[FirstName][rndLastName]);
+                //Всеки създаден човек бива "нает" в случайна фирма
                 if (person.Index <= firms_Number)
                 {
                     WorkPlace workPlace = new WorkPlace(person.Index, addOwner, 2);
