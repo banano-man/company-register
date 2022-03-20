@@ -18,12 +18,12 @@ namespace Firm_Register.Controllers
         {
             _db = db;
         }
-
-        public ActionResult Index(string region)
+        public ActionResult Index(string text, string check)
         {
-            ViewBag.region = region;
+            ViewBag.text = text;
             FirmViewModel firmModel = new FirmViewModel();
             firmModel.Firms = _db.Firms;
+            ViewBag.check = check;
             firmModel.Regions = _db.Regions;
             return View(firmModel);
         }

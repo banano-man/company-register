@@ -28,6 +28,7 @@ namespace Firm_Register.Controllers
             homeModel.People = _db.People;
             homeModel.Firms = _db.Firms;
             homeModel.Regions = _db.Regions;
+            ViewData["firms"] = _db.Firms;
             ViewBag.PeopleCount = _db.People.Count() / 100 * 100;
             ViewBag.FirmsCount = _db.Firms.Count() / 10 * 10;
             return View(homeModel);
@@ -45,4 +46,5 @@ namespace Firm_Register.Controllers
         }
     }
 }
+
 
