@@ -39,12 +39,14 @@
                     }
                     function go()
                     {
-                        var check = "f";
-                        location.href = '@Url.Action("Index", "Firms")?text=' + name + '&check=' + check;
+                        if (name != "") {
+                            var check = "f";
+                            location.href = '@Url.Action("Index", "Firms")?text=' + name + '&check=' + check;
+                        }
                     }
                 </script>
                 <input style="width:300px" type="text" placeholder="Търси..." id="search" onblur="safe()">
-                <button type="button" onclick="go()">Търси</button>
+                <button class="btn btn-info" type="button" onclick="go()">Търси</button>
             </form>
         </div>
     </div>
