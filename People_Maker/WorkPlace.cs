@@ -10,6 +10,7 @@ namespace People_Maker
     class WorkPlace
     {
         public string toDataBase = "";
+        //В зависимост от предварително зададени параметри се генгерира работното място на човек X във фирма Y
         public WorkPlace(int person_Id, int firm_Id, int role_Id)
         {
             string conString = "Data Source = (LocalDb)\\MSSQLLocalDB; Initial Catalog = Firm_Register; Integrated Security=True";
