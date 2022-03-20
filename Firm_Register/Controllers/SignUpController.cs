@@ -26,9 +26,13 @@ namespace Firm_Register.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(People obj)
         {
-            _db.People.Add(obj);
-            _db.SaveChanges();
-            return RedirectToPage("~/Home/Index");
+            if (ModelState.IsValid)
+            {
+                _db.People.Add(obj);
+                _db.SaveChanges();
+                return RedirectToPage("~/Home/Index");
+            }
+            return View(obj);
         }
     }
 }

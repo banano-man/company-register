@@ -1,0 +1,39 @@
+﻿@model Firm_Register.ViewModels.MyFirmViewModel
+
+<form method="post" asp-action="DeleteConfirm">
+    <!--<input asp-for="Id" hiddwn />-->
+    <div>
+        <div class="form-group row">
+            <div class="col-6 text-right">
+                <label asp-for="People"></label>
+            </div>
+            <div class="col-6 text-left">
+                <input asp-for="People" disabled>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-6 text-right">
+                <label asp-for="Roles"></label>
+            </div>
+            <div class="col-6 text-left">
+                <input asp-for="Roles" disabled>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group row">
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-danger">Изтриване</button>
+                <br />
+                <a asp-controller="MyFirms" asp-action="Index">Отказ</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+

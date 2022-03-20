@@ -1,0 +1,41 @@
+﻿@model Firm_Register.ViewModels.MyFirmViewModel
+
+<form method="post" asp-action="Create">
+    <div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-6 text-right">
+                <label asp-for="People"></label>
+            </div>
+            <div class="col-6 text-left">
+                <input asp-for="People" placeholder="Въведете човек">
+                <span asp-validation-for="People" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-6 text-right">
+                <label asp-for="Roles"></label>
+            </div>
+            <div class="col-6 text-left">
+                <input asp-for="Roles" placeholder="Въведете роля">
+                <span asp-validation-for="Roles" class="text-danger"></span>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group row">
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-success">Създаване</button>
+                <br />
+                <a asp-controller="MyFirms" asp-action="Index">Отказ</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+
