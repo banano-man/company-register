@@ -8,8 +8,10 @@ namespace People_Maker
 {
     public static class Email
     {
+        //Генератор на Имейли
         public static string EmailMaker(string FName, string LName, string EGN)
         {
+            //Транслитериране на имената
             FName = FName.ToLower(); LName = LName.ToLower();
             Dictionary<string, string> BgToEng = new Dictionary<string, string>()
             {
@@ -24,7 +26,9 @@ namespace People_Maker
             email.Append(BgToEng[FName[0].ToString()]); email.Append('.');
             foreach (char l in LName)
                 email.Append(BgToEng[l.ToString()]);
+            //Добавяне на първи 6 цифри от ЕГН-то (дата на раждане)
             email.Append(EGN.Substring(0, 6));
+            //добавяне на поща
             email.Append('@');
             Random rnd = new Random();
             switch (rnd.Next(3))
