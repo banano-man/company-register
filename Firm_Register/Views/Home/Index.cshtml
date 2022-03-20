@@ -4,42 +4,63 @@
     ViewData["Title"] = "Начало";
 }
 <style>
-    div { align-content:center;
-          background-color:white;
+    div {
+        align-content: center;
+        background-color: white;
     }
+
     td {
         cursor: pointer;
     }
-    body{
-        background-color:#f2f2f2;
+
+    body {
+        background-color: #f2f2f2;
     }
 </style>
-<body>
-<div style="align-items: center; padding-top: 2em; margin-top: 3em; margin-bottom: 2.3em;">
-    <h3 style="text-align: center;">
-        ИНФОРМАЦИЯ ЗА ПОВЕЧЕ ОТ <b>@ViewBag.FirmsCount</b> ФИРМИ,<br>
-        В КОИТО РАБОТЯТ НАД <b>@ViewBag.PeopleCount</b> ДУШИ
-    </h3>
-</div>
-    <hr>
-<div style="margin-top:2.3em; margin-bottom: 2em;">
-    
-    <h4 style="text-align: center;">Търсене на фирма</h4>
-    <p style="text-align: center;">Тука слагаме търсачката</p>
-</div>
-<hr>
-<div class="container" style=" text-align: center; margin-top: 2em;" align="center">
 
-    <h5 style="margin-bottom: 10px;">Търсене по област</h5>
-        <p style="line-height:20px; column-count: 4; column-gap: 0.9375px;">
+
+<body>
+    <div style="align-items: center; padding-top: 2em; margin-top: 3em; margin-bottom: 2.3em;">
+        <h3 style="text-align: center;">
+            ИНФОРМАЦИЯ ЗА ПОВЕЧЕ ОТ <b>@ViewBag.FirmsCount</b> ФИРМИ,<br>
+            В КОИТО РАБОТЯТ НАД <b>@ViewBag.PeopleCount</b> ДУШИ
+        </h3>
+    </div>
+    <hr>
+    <div style="margin-top:2.3em; margin-bottom: 2em;">
+
+        <h4 style="text-align: center;">Търсене на фирма</h4>
+        <div  class="search-container;" style="text-align: center;" >
+            <form>
+                <script>
+                    var name = "";
+                    function safe() {
+                        name = document.getElementById("search").value;
+                    }
+                    function go()
+                    {
+                        var check = "f";
+                        location.href = '@Url.Action("Index", "Firms")?text=' + name + '&check=' + check;
+                    }
+                </script>
+                <input style="width:300px" type="text" placeholder="Търси..." id="search" onblur="safe()">
+                <button type="button" onclick="go()">Търси</button>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <div class="container" style=" text-align: center; margin-top: 2em;" align="center">
+
+        <h5 style="margin-bottom: 10px;">Търсене по област</h5>
+        <p style="line-height: 20px; column-count: 4; column-gap: 0.9375px; margin-left: 12em; margin-right: 12em;">
             @foreach (var obj in Model.Regions)
             {
                 <tr>
-                    <td ><a asp-controller="Firms" asp-action="Index" asp-route-region=@obj.Region_Name>@Html.Label(obj.Region_Name)</a></td>
+                    <td><a asp-controller="Firms" asp-action="Index" asp-route-text=@obj.Region_Name asp-route-check="t">@Html.Label(obj.Region_Name)</a></td>
                     <br>
                 </tr>
             }
         </p>
-</div>
+    </div>
 
 </body><div style="background-color:#f2f2f2;"><hr></div>
