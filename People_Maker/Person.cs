@@ -11,7 +11,7 @@ namespace People_Maker
         private int index = 0;
         public Person(string First_Name, string Last_Name, char gender)
         {
-
+            //Заявка към базата данни
             string conString = "Data Source = (LocalDb)\\MSSQLLocalDB; Initial Catalog = Firm_Register; Integrated Security=True";
             SqlConnection Con = new SqlConnection(@conString);
             SqlCommand CmdId = new SqlCommand("SELECT MAX(Person_Id) FROM People", Con);
@@ -26,6 +26,7 @@ namespace People_Maker
              
             try
             {
+                //Създаване на елементите и записването им
                 string newPassword = Password.GeneratePassword();
                 string newEGN = EGN.EGNMaker(gender);
                 string newEmail = Email.EmailMaker(First_Name, Last_Name, newEGN);
